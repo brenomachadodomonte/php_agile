@@ -1,0 +1,21 @@
+1 - Mover index.php de web/ para raiz e editar caminhos
+
+//Criar .htaccess
+/*
+    RewriteEngine on
+    # If a directory or a file exists, use it directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    # Otherwise forward it to index.php
+    RewriteRule . index.php
+*/
+
+//NO ARQUIVO controllers/SiteControler.php > Action Login
+{
+    $this->layout = "main-login";
+    //...
+}
+
+//add in View.php
+public $myCssFiles = [];
+public $myJsFiles = [];
