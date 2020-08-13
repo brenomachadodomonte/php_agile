@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Papels';
+$this->title = 'Papéis';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="papel-index box box-default">

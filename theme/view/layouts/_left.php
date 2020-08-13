@@ -7,12 +7,16 @@ if($usuario['type'] == 1){
     $items = [
         ['label' => 'Menu', 'options' => ['class' => 'header']],
         ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['/site/index']],
-        ['label' => 'Planos', 'icon' => 'clipboard', 'url' => ['/plano'], 'active' => Yii::$app->controller->id == 'plano'],
-        ['label' => 'Modelos', 'icon' => 'motorcycle', 'url' => ['/modelo'], 'active' => Yii::$app->controller->id == 'modelo'],
-        ['label' => 'Preços', 'icon' => 'dollar', 'url' => ['/tabela-preco'], 'active' => Yii::$app->controller->id == 'tabela-preco'],
-        ['label' => 'Concessionárias', 'icon' => 'building', 'url' => ['/concessionaria'], 'active' => Yii::$app->controller->id == 'concessionaria'],
-        ['label' => 'Usuários', 'icon' => 'users', 'url' => ['/usuario'], 'active' => Yii::$app->controller->id == 'usuario'],
-        ['label' => 'Versões', 'icon' => 'check-square-o', 'url' => ['/versao'], 'active' => Yii::$app->controller->id == 'versao'],
+        ['label' => 'Produtos', 'icon' => 'cube', 'url' => ['/produto'], 'active' => Yii::$app->controller->id == 'plano'],
+        ['label' => 'Kanban', 'icon' => 'th', 'url' => ['/kanban'], 'active' => Yii::$app->controller->id == 'modelo'],
+        ['label' => 'Sprints', 'icon' => 'send', 'url' => ['/sprint'], 'active' => Yii::$app->controller->id == 'tabela-preco'],
+        ['label' => 'Tarefas', 'icon' => 'check-square-o', 'url' => ['/tarefa'], 'active' => Yii::$app->controller->id == 'concessionaria'],
+        ['label' => 'Sistema', 'icon' => 'cog', 'url' => ['#'],
+            'items' => [
+                ['label' => 'Papéis', 'icon' => 'clipboard', 'url' => ['/papel'], 'active' => Yii::$app->controller->id == 'papel'],
+                ['label' => 'Usuários', 'icon' => 'users', 'url' => ['/usuario'], 'active' => Yii::$app->controller->id == 'usuario'],
+            ]
+        ],
         /*['label' => 'DEV HELP', 'options' => ['class' => 'header']],
         ['label' => 'Configuration','url' => ['/site/config'], 'active' => Yii::$app->controller->id == 'versao'],
         ['label' => 'Pickers e Masks', 'url' => ['/site/config'], 'active' => Yii::$app->controller->id == 'versao'],
