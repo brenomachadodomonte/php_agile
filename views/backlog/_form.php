@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Produto;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -19,10 +20,9 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'prioridade')->textInput() ?>
 
-        <?= $form->field($model, 'categoria')->textInput() ?>
+        <?= $form->field($model, 'categoria')->dropDownList(\app\models\Backlog::getCategorias()) ?>
 
-        <?= $form->field($model, 'produto_id')->textInput() ?>
-
+        <?= $form->field($model, 'produto_id')->dropDownList(Produto::find()->where(['status'=>1])->select(['nome'])->orderBy('nome')->indexBy('id')->column(), ['prompt'=>'Selecione']) ?>
 
     </div>
     <div class="box-footer">

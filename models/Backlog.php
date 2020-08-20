@@ -13,9 +13,9 @@ use Yii;
 * @property int|null $categoria
 * @property int $produto_id
 *
-    * @property Produto $produto
-    * @property Sprint[] $sprints
-    */
+* @property Produto $produto
+* @property Sprint[] $sprints
+*/
 class Backlog extends \yii\db\ActiveRecord
 {
     /**
@@ -81,7 +81,7 @@ class Backlog extends \yii\db\ActiveRecord
     */
     public function getProduto()
     {
-    return $this->hasOne(Produto::className(), ['id' => 'produto_id']);
+        return $this->hasOne(Produto::className(), ['id' => 'produto_id']);
     }
 
     /**
@@ -89,6 +89,14 @@ class Backlog extends \yii\db\ActiveRecord
     */
     public function getSprints()
     {
-    return $this->hasMany(Sprint::className(), ['backlog_id' => 'id']);
+        return $this->hasMany(Sprint::className(), ['backlog_id' => 'id']);
+    }
+
+    public static function getCategorias(){
+        return [
+            0 => 'Pouco Importante',
+            1 => 'Importante',
+            2 => 'Muito Importante'
+        ];
     }
 }
