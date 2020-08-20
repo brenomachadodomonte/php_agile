@@ -2,8 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\Backlog;
+use app\models\Produto;
+use app\models\Sprint;
+use app\models\Tarefa;
 use Yii;
+use yii\db\Query;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -61,7 +67,45 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        //Data For Dashboard
+        $quickAccess = [
+            'produtos' =>  Produto::find()->count('1'),
+            'backlogs' =>  Backlog::find()->count('1'),
+            'sprint' =>  Sprint::find()->count('1'),
+            'tarefas' =>  Tarefa::find()->where(['quadro'=>0])->count('1')
+        ];
+
+        return $this->render('index',[
+            'quickAccess'=>$quickAccess,
+            'usuariosEstado'=>[]
+        ]);
+    }
+
+    public function actionCharts(){
+        $query = new Query();
+        $rs = $query->select(['DATE_FORMAT(data_criacao, "%Y%m") mes','count(1) qtde'])
+            ->from('tarefa')
+            ->groupBy('mes')
+            ->orderBy('mes desc')
+            ->limit(12)
+            ->all();
+        $categories = array_column($rs, 'mes');
+        $data = array_map('intval', array_column($rs, 'qtde'));
+        krsort($categories);
+        krsort($data);
+        $result = [
+            'tarefas' => [
+                'categories' => array_values($categories),
+                'data' => array_values($data)
+            ],
+            'tipos' => [
+                ['name' => 'Nova', 'y'=>(int)Tarefa::find()->where(['tipo'=>1])->count('1')],
+                ['name' => 'Alteração', 'y'=>(int)Tarefa::find()->where(['tipo'=>2])->count('1')],
+                ['name' => 'Correção', 'y'=>(int)Tarefa::find()->where(['tipo'=>3])->count('1')]
+            ]
+        ];
+
+        return Json::encode($result);
     }
 
     /**

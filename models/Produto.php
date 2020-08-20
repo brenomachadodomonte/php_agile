@@ -49,10 +49,10 @@ class Produto extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nome' => 'Nome',
-            'descricao' => 'Descricao',
+            'descricao' => 'Descrição',
             'status' => 'Status',
-            'data_criacao' => 'Data Criacao',
-            'data_modificacao' => 'Data Modificacao',
+            'data_criacao' => 'Data Criação',
+            'data_modificacao' => 'Data Modificação',
         ];
     }
 
@@ -85,7 +85,7 @@ class Produto extends \yii\db\ActiveRecord
     */
     public function getBacklogs()
     {
-    return $this->hasMany(Backlog::className(), ['produto_id' => 'id']);
+        return $this->hasMany(Backlog::className(), ['produto_id' => 'id']);
     }
 
     /**
@@ -93,6 +93,6 @@ class Produto extends \yii\db\ActiveRecord
     */
     public function getPapelUsuarios()
     {
-    return $this->hasMany(PapelUsuario::className(), ['produto_id' => 'id']);
+        return $this->hasMany(PapelUsuario::className(), ['produto_id' => 'id']);
     }
 }

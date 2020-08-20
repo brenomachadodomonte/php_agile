@@ -9,6 +9,7 @@ $themeOptions = require  __DIR__ . '/../../config.php';
 $dir = Url::base() . '/web/admin-assets/';
 $cssBase = $this->theme->getUrl('css');
 $jsBase = $this->theme->getUrl('js');
+$themeBase = $this->theme->baseUrl;
 $usuario = [
     'nome' => Yii::$app->user->isGuest ? 'Visitante' : Yii::$app->user->identity->name,
     'foto' => $this->theme->getUrl('img/default-user.jpg'),
@@ -51,7 +52,7 @@ $usuario = [
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <?php foreach($this->myCssFiles as $css) { ?>
-        <link rel="stylesheet" href="<?=$cssBase?>/src/css/<?=$css?>">
+        <link rel="stylesheet" href="<?=$themeBase?>/src/css/<?=$css?>">
     <?php } ?>
 </head>
 <body class="hold-transition <?=$themeOptions['skin']?> sidebar-mini <?=$themeOptions['fixed']?'fixed':''?>">
@@ -101,7 +102,7 @@ $usuario = [
 <script src="<?=$jsBase?>/admin/default.js"></script>
 
 <?php foreach($this->myJsFiles as $js) { ?>
-    <script src="<?=$jsBase?>/src/js/<?=$js?>"></script>
+    <script src="<?=$themeBase?>/src/js/<?=$js?>"></script>
 <?php } ?>
 </body>
 </html>
