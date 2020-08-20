@@ -2,7 +2,7 @@
 // Theme Config
 return [
     'fixed' => false,
-    'skin'  => 'skin-purple-light',
+    'skin'  => 'skin-purple',
 
     /**
      * Avaliable skins

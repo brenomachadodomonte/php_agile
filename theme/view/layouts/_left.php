@@ -8,8 +8,9 @@ if($usuario['type'] == 1){
         ['label' => 'Menu', 'options' => ['class' => 'header']],
         ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['/site/index']],
         ['label' => 'Produtos', 'icon' => 'cube', 'url' => ['/produto'], 'active' => Yii::$app->controller->id == 'plano'],
-        ['label' => 'Kanban', 'icon' => 'th', 'url' => ['/kanban'], 'active' => Yii::$app->controller->id == 'modelo'],
+        ['label' => 'Backlogs', 'icon' => 'cubes', 'url' => ['/backlog'], 'active' => Yii::$app->controller->id == 'backlog'],
         ['label' => 'Sprints', 'icon' => 'send', 'url' => ['/sprint'], 'active' => Yii::$app->controller->id == 'tabela-preco'],
+        ['label' => 'Kanban', 'icon' => 'th', 'url' => ['/kanban'], 'active' => Yii::$app->controller->id == 'modelo'],
         ['label' => 'Tarefas', 'icon' => 'check-square-o', 'url' => ['/tarefa'], 'active' => Yii::$app->controller->id == 'concessionaria'],
         ['label' => 'Sistema', 'icon' => 'cog', 'url' => ['#'],
             'items' => [
