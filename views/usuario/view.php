@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'email:email',
                 'senha',
                 'avatarPath:url',
-                'tipo',
+                'tipoDescricao',
                 ['attribute' => 'status','value' => $model->status == 1 ? 'Ativo' : 'Inativo'],
                 'access_token',
                 'auth_key',

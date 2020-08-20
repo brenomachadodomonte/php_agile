@@ -62,7 +62,7 @@ class Usuario extends \yii\db\ActiveRecord
             'status' => 'Status',
             'access_token' => 'Access Token',
             'auth_key' => 'Auth Key',
-            'data_criacao' => 'Data Criacao',
+            'data_criacao' => 'Data Criação',
         ];
     }
 
@@ -127,6 +127,6 @@ class Usuario extends \yii\db\ActiveRecord
     }
 
     public function getAvatarPath(){
-        return Yii::$app->request->baseUrl . '/media/' . $this->avatar;
+        return $this->avatar ? Yii::$app->request->baseUrl . '/media/' . $this->avatar : null;
     }
 }

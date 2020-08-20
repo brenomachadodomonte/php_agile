@@ -17,6 +17,12 @@ if($usuario['type'] == 1){
                 ['label' => 'Usuários', 'icon' => 'users', 'url' => ['/usuario'], 'active' => Yii::$app->controller->id == 'usuario'],
             ]
         ],
+        ['label' => 'Relatórios', 'icon' => 'file', 'url' => ['#'],
+            'items' => [
+                ['label' => 'Tarefas por Usuário', 'icon' => 'clipboard', 'url' => ['/relatorio'], 'active' => Yii::$app->controller->id == 'relatorio'],
+                ['label' => 'Tarefas por Referência', 'icon' => 'users', 'url' => ['/relatorio2'], 'active' => Yii::$app->controller->id == 'relatorio'],
+            ]
+        ],
         /*['label' => 'DEV HELP', 'options' => ['class' => 'header']],
         ['label' => 'Configuration','url' => ['/site/config'], 'active' => Yii::$app->controller->id == 'versao'],
         ['label' => 'Pickers e Masks', 'url' => ['/site/config'], 'active' => Yii::$app->controller->id == 'versao'],
