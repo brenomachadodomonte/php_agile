@@ -111,6 +111,8 @@ function loadPlugins() {
     });
 }
 
+$.fn.yiiGridView = function (method) {}
+
 function loader(mode) {
     $('#preloader')[mode]();
 }

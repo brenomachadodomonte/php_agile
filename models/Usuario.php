@@ -10,7 +10,7 @@ use Yii;
 * @property int $id
 * @property string $nome
 * @property string $email
-* @property string|null $senha
+* @property string $senha
 * @property string|null $avatar
 * @property int $tipo
 * @property int $status
@@ -18,8 +18,8 @@ use Yii;
 * @property string|null $auth_key
 * @property string $data_criacao
 *
-    * @property PapelUsuario[] $papelUsuarios
-    */
+* @property PapelUsuario[] $papelUsuarios
+*/
 class Usuario extends \yii\db\ActiveRecord
 {
     /**
@@ -42,6 +42,7 @@ class Usuario extends \yii\db\ActiveRecord
             [['nome'], 'string', 'max' => 80],
             [['email', 'senha'], 'string', 'max' => 200],
             [['avatar', 'access_token', 'auth_key'], 'string', 'max' => 100],
+            [['email'], 'unique'],
         ];
     }
 
@@ -57,6 +58,7 @@ class Usuario extends \yii\db\ActiveRecord
             'senha' => 'Senha',
             'avatar' => 'Avatar',
             'tipo' => 'Tipo',
+            'tipoDescricao'=>'Tipo',
             'status' => 'Status',
             'access_token' => 'Access Token',
             'auth_key' => 'Auth Key',
@@ -74,7 +76,6 @@ class Usuario extends \yii\db\ActiveRecord
         }
 
         $searchables = [
-             "ifnull(id, '')",
              "ifnull(nome, '')",
              "ifnull(email, '')",
              "ifnull(senha, '')",
@@ -97,6 +98,35 @@ class Usuario extends \yii\db\ActiveRecord
     */
     public function getPapelUsuarios()
     {
-    return $this->hasMany(PapelUsuario::className(), ['usuario_id' => 'id']);
+        return $this->hasMany(PapelUsuario::className(), ['usuario_id' => 'id']);
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->senha = sha1($this->senha);
+            } else if ($this->isAttributeChanged('senha')){
+                $this->senha = sha1($this->senha);
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    public static function getTipos(){
+        return [
+            0 => 'Administrador',
+            1 => 'Usuário Comum',
+        ];
+    }
+
+    public function getTipoDescricao(){
+        return Usuario::getTipos()[$this->tipo];
+    }
+
+    public function getAvatarPath(){
+        return Yii::$app->request->baseUrl . '/media/' . $this->avatar;
     }
 }
