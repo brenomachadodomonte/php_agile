@@ -18,9 +18,9 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'prioridade')->textInput() ?>
-
-        <?= $form->field($model, 'categoria')->dropDownList(\app\models\Backlog::getCategorias()) ?>
+<!--        --><?//= $form->field($model, 'prioridade')->dropDownList(\app\models\Backlog::getPrioridades(),['prompt'=>'Selecione']) ?>
+<!---->
+<!--        --><?//= $form->field($model, 'categoria')->dropDownList(\app\models\Backlog::getCategorias(),['prompt'=>'Selecione']) ?>
 
         <?= $form->field($model, 'produto_id')->dropDownList(Produto::find()->where(['status'=>1])->select(['nome'])->orderBy('nome')->indexBy('id')->column(), ['prompt'=>'Selecione']) ?>
 

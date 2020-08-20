@@ -46,10 +46,10 @@ class Backlog extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'descricao' => 'Descricao',
+            'descricao' => 'Descrição',
             'prioridade' => 'Prioridade',
             'categoria' => 'Categoria',
-            'produto_id' => 'Produto ID',
+            'produto_id' => 'Produto',
         ];
     }
 
@@ -97,6 +97,14 @@ class Backlog extends \yii\db\ActiveRecord
             0 => 'Pouco Importante',
             1 => 'Importante',
             2 => 'Muito Importante'
+        ];
+    }
+
+    public static function getPrioridades(){
+        return [
+            0 => 'Baixa',
+            1 => 'Média',
+            2 => 'Alta'
         ];
     }
 }
