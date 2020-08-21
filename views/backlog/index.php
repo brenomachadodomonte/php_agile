@@ -42,14 +42,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 //'id',
                 'produto.nome',
                 'descricao',
-                'prioridade',
-                'categoria',
+                'prioridadeDescricao',
+                'categoriaDescricao',
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'header'=> 'Ações',
                     'contentOptions' => ['class' => 'text-center action-buttons'],
                     'headerOptions' => ['class' => 'text-center'],
+                    'template'=>'{config} {view} {update} {delete}',
                     'buttons'=>[
+                        'config' => function($url, $model) {
+                            return Html::a('<i class="glyphicon glyphicon-cog"></i> ', ['backlog/config/'.$model->id], ['data-toggle'=>'tooltip', 'class' => 'btn btn-info btn-sm btn-flat', 'title'=>'Configurar']);
+                        },
                         'view'=>function ($url, $model) {
                             return Html::a('<i class="glyphicon glyphicon-eye-open"></i> ', ['backlog/view/'.$model->id], ['data-toggle'=>'tooltip', 'class' => 'btn btn-primary btn-sm btn-flat', 'title'=>'Visualizar']);
                         },

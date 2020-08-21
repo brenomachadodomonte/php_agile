@@ -23,9 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' => [
                 'id',
                 'descricao',
-                'prioridade',
-                'categoria',
-                'produto_id',
+                'prioridadeDescricao',
+                'categoriaDescricao',
+                ['attribute'=>'produto.nome', 'label'=>'Produto'],
             ],
         ]) ?>
     </div>

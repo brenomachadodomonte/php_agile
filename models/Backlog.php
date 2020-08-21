@@ -50,6 +50,8 @@ class Backlog extends \yii\db\ActiveRecord
             'prioridade' => 'Prioridade',
             'categoria' => 'Categoria',
             'produto_id' => 'Produto',
+            'prioridadeDescricao' => 'Prioridade',
+            'categoriaDescricao' => 'Categoria'
         ];
     }
 

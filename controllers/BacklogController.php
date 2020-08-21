@@ -97,6 +97,19 @@ class BacklogController extends Controller
         }
     }
 
+    public function actionConfig($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('config', [
+                'model' => $model,
+            ]);
+        }
+    }
+
     /**
      * Deletes an existing Backlog model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
