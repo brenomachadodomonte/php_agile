@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Papel;
+use app\models\PapelUsuario;
+use app\models\Usuario;
 use Yii;
 use app\models\Produto;
 use yii\data\ActiveDataProvider;
@@ -68,12 +71,49 @@ class ProdutoController extends Controller
     public function actionCreate()
     {
         $model = new Produto();
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $transaction = Yii::$app->db->beginTransaction();
+            try{
+                $model->load($post);
+                $model->save();
+
+                $owner = new PapelUsuario();
+                $owner->papel_id = 2;
+                $owner->produto_id = $model->id;
+                $owner->usuario_id = $post['owner'];
+                $owner->save();
+
+                $master = new PapelUsuario();
+                $master->papel_id = 3;
+                $master->produto_id = $model->id;
+                $master->usuario_id = $post['master'];
+                $master->save();
+
+                foreach ($post['developers'] as $developer){
+                    $dev = new PapelUsuario();
+                    $dev->papel_id = 1;
+                    $dev->produto_id = $model->id;
+                    $dev->usuario_id = $developer;
+                    $dev->save();
+                }
+
+                $transaction->commit();
+                return $this->redirect(['view', 'id' => $model->id]);
+            } catch (\Exception $e){
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', "Erro ao cadastrar Produto");
+                return $this->redirect(['index']);
+            }
+
         } else {
+            $usuarios = Usuario::find()->all();
+            $papeis = Papel::find()->all();
             return $this->render('create', [
                 'model' => $model,
+                'usuarios'=>$usuarios,
+                'papeis'=>$papeis
             ]);
         }
     }

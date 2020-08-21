@@ -6,6 +6,12 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Produto */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $usuarios array */
+/* @var $papeis array */
+
+$this->myJsFiles = [
+    'produto.js'
+];
 ?>
 
 <div class="produto-form box box-default">
@@ -19,13 +25,58 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'status')->checkbox(['class'=>'icheck']) ?>
+        <?= $form->field($model, 'status')->checkbox(['class'=>'icheck', 'checked'=>true]) ?>
 
         <?php if($model->isNewRecord) { 
             echo $form->field($model, 'data_criacao')->hiddenInput(['value'=>date('Y-m-d H:i:s')])->label(false);
         } else { 
             echo $form->field($model, 'data_modificacao')->hiddenInput(['value'=>date('Y-m-d H:i:s')])->label(false);
-        } ?>        
+        } ?>
+
+        <legend><i class="fa fa-users"></i> Scrum Team</legend>
+
+        <div class="form-group">
+            <label class="control-label" for="owner">Product Owner</label>
+            <select name="owner" id="owner" class="form-control">
+                <option value="">Selecione o Usuário</option>
+                <?php foreach($usuarios as $usuario){ ?>
+                    <option value="<?=$usuario->id?>"><?=$usuario->nome?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="master">Scrum Master</label>
+            <select name="master" id="master" class="form-control">
+                <option value="">Selecione o Usuário</option>
+                <?php foreach($usuarios as $usuario){ ?>
+                    <option value="<?=$usuario->id?>"><?=$usuario->nome?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="developers">Scrum Developers</label>
+            <select name="developers[]" multiple id="developers" class="form-control">
+                <option value="">Selecione os Usuários</option>
+                <?php foreach($usuarios as $usuario){ ?>
+                    <option value="<?=$usuario->id?>"><?=$usuario->nome?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <!--<div class="col-md-12">
+            <div class="row">
+                <select name="product-owner" id="product-owner" required>
+                    <option value="">Selecione o Usuário</option>
+
+                </select>
+                <i class="fa fa-long-arrow-right"></i>
+                <select name="product-owner" id="product-owner" required>
+                    <option value="">Selecione o Papel</option>
+
+                </select>
+            </div>
+        </div>-->
     </div>
     <div class="box-footer">
         <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-save"></i> Cadastrar' : '<i class="fa fa-save"></i> Salvar', ['class' => 'btn btn-success btn-flat']) ?>
