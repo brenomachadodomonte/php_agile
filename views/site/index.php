@@ -2,8 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $quickAccess array */
-/* @var $usuariosEstado array */
-/* @var $estados array */
+/* @var $tarefas array */
 
 $this->title = 'Dashboard';
 
@@ -12,11 +11,9 @@ $this->myJsFiles = [
     'dashboard.js'
 ];
 $this->myCssFiles = [
-    'highcharts.css',
     'dashboard.css'
 ];
 use yii\helpers\Url; ?>
-
 <!-- Small boxes (Stat box) -->
 <div class="row">
     <div class="col-lg-3 col-xs-6">
@@ -101,19 +98,19 @@ use yii\helpers\Url; ?>
             <div class="box-header">
                 <i class="ion ion-clipboard"></i>
 
-                <h3 class="box-title">Usuários por Estado</h3>
+                <h3 class="box-title">Tarefas por Usuários</h3>
             </div>
             <div class="box-body">
                 <div class="table-wrapper-scroll-y my-custom-scrollbar">
                     <table class="table table-bordered">
                         <tr>
-                            <th>Estado</th>
+                            <th>Usuário</th>
                             <th style="width: 60px">Qtde</th>
                         </tr>
-                        <?php foreach($usuariosEstado as $estado){ ?>
+                        <?php foreach($tarefas as $tarefa){ ?>
                             <tr>
-                                <td><?=$estados[$estado['estado']]?></td>
-                                <td><?=$estado['qtde']?></td>
+                                <td><?=$tarefa['usuario']?></td>
+                                <td><?=$tarefa['qtde']?></td>
                             </tr>
                         <?php } ?>
                     </table>

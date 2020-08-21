@@ -31,44 +31,64 @@ $(function () {
                     type: 'column'
                 },
                 title: {
-                    text: 'Tarefas últimos 12 meses'
-                },
-                subtitle: {
-                    text: ''
-                },
-                credits: {
-                    enabled: false
+                    text: 'Tarefas últimos 06 meses'
                 },
                 xAxis: {
-                    categories: dados.tarefas.categories,
-                    crosshair: true
+                    categories: ['202003','202004', '202005', '202006', '202007', '202008']
                 },
                 yAxis: {
                     min: 0,
                     title: {
                         text: 'Quantidade'
+                    },
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'bold',
+                        }
                     }
                 },
+                legend: {
+                    align: 'right',
+                    x: -30,
+                    verticalAlign: 'top',
+                    y: 25,
+                    floating: true,
+                    backgroundColor:
+                        Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                credits: {
+                    enabled: false
+                },
                 tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                        '<td style="padding:0"><b>{point.y}</b></td></tr>',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
+                    headerFormat: '<b>{point.x}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
                 },
                 plotOptions: {
                     column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                        }
                     }
                 },
                 series: [{
-                    name: 'Adesões',
-                    data: dados.tarefas.data
+                    name: 'Nova',
+                    data: [5, 3, 4, 7, 2, 5],
+                    color: '#00a65a'
+                }, {
+                    name: 'Alteração',
+                    data: [2, 2, 3, 2, 1, 4],
+                    color: '#f39c12'
+                }, {
+                    name: 'Correção',
+                    data: [3, 4, 4, 2, 5, 6],
+                    color: '#dd4b39'
                 }]
             });
-
             Highcharts.chart('tipos-chart', {
                 chart: {
                     plotBackgroundColor: null,
@@ -87,25 +107,32 @@ $(function () {
                 },
                 plotOptions: {
                     pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
+                        // allowPointSelect: true,
+                        // cursor: 'pointer',
                         dataLabels: {
                             enabled: false
                         },
-                        showInLegend: true
+                        showInLegend: true,
+                        colors: ['#00a65a', '#f39c12','#dd4b39'],
                     }
                 },
                 series: [{
                     name: 'Percentual',
                     colorByPoint: true,
-                    data: dados.tipos
-                        /*[{
-                        name: 'Usuário de Concessionária',
+                    data: //dados.tipos
+                        [{
+                        name: 'Nova',
                         y: 654,
+                            color: '#00a65a'
                     }, {
-                        name: 'Usuário Avulso',
-                        y: 248
-                    }]*/
+                        name: 'Alteração',
+                        y: 248,
+                            color: '#f39c12'
+                    }, {
+                        name: 'Correção',
+                        y: 158,
+                            color: '#dd4b39'
+                    }]
                 }]
             });
         },

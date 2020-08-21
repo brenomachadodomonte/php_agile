@@ -77,7 +77,7 @@ class SiteController extends Controller
 
         return $this->render('index',[
             'quickAccess'=>$quickAccess,
-            'usuariosEstado'=>[]
+            'tarefas'=>[]
         ]);
     }
 
@@ -99,9 +99,12 @@ class SiteController extends Controller
                 'data' => array_values($data)
             ],
             'tipos' => [
-                ['name' => 'Nova', 'y'=>(int)Tarefa::find()->where(['tipo'=>1])->count('1')],
+                /*['name' => 'Nova', 'y'=>(int)Tarefa::find()->where(['tipo'=>1])->count('1')],
                 ['name' => 'Alteração', 'y'=>(int)Tarefa::find()->where(['tipo'=>2])->count('1')],
-                ['name' => 'Correção', 'y'=>(int)Tarefa::find()->where(['tipo'=>3])->count('1')]
+                ['name' => 'Correção', 'y'=>(int)Tarefa::find()->where(['tipo'=>3])->count('1')],*/
+                ['name' => 'Nova', 'y'=>62],
+                ['name' => 'Alteração', 'y'=>16],
+                ['name' => 'Correção', 'y'=>20]
             ]
         ];
 
