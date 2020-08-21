@@ -1,10 +1,12 @@
 <?php
 
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Produto */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Produto #'.$model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Produtos', 'url' => ['index']];
@@ -30,4 +32,23 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </div>
+    <div class="box-body">
+        <h4>Scrum Team</h4>
+    </div>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'summary'=>'Exibindo {begin}-{end} de {totalCount} itens',
+        'pager' => [
+            'options' => [
+                'class' => 'pagination pagination-sm no-margin pull-right',
+            ],
+        ],
+        'emptyText' => 'Nenhum registro encontrado',
+        'layout' => "<div class='box-body table-responsive'>{items}</div> <div class='box-footer'> <span>{summary}</span>{pager}</div>",
+        'columns' => [
+            'usuario.nome',
+            ['attribute'=>'papel.descricao', 'label'=>'Papel']
+        ],
+    ]); ?>
 </div>

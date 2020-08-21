@@ -64,19 +64,6 @@ $this->myJsFiles = [
                 <?php } ?>
             </select>
         </div>
-        <!--<div class="col-md-12">
-            <div class="row">
-                <select name="product-owner" id="product-owner" required>
-                    <option value="">Selecione o Usuário</option>
-
-                </select>
-                <i class="fa fa-long-arrow-right"></i>
-                <select name="product-owner" id="product-owner" required>
-                    <option value="">Selecione o Papel</option>
-
-                </select>
-            </div>
-        </div>-->
     </div>
     <div class="box-footer">
         <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-save"></i> Cadastrar' : '<i class="fa fa-save"></i> Salvar', ['class' => 'btn btn-success btn-flat']) ?>

@@ -58,8 +58,13 @@ class ProdutoController extends Controller
      */
     public function actionView($id)
     {
+        $dataProvider = new ActiveDataProvider([
+            'query' => PapelUsuario::find()->where(['produto_id'=>$id]),
+        ]);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -131,8 +136,12 @@ class ProdutoController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $usuarios = Usuario::find()->all();
+            $papeis = Papel::find()->all();
             return $this->render('update', [
                 'model' => $model,
+                'usuarios'=>$usuarios,
+                'papeis'=>$papeis
             ]);
         }
     }
