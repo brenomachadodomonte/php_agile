@@ -109,7 +109,7 @@ use yii\helpers\Url; ?>
                         </tr>
                         <?php foreach($tarefas as $tarefa){ ?>
                             <tr>
-                                <td><?=$tarefa['usuario']?></td>
+                                <td><?=$tarefa['nome']?></td>
                                 <td><?=$tarefa['qtde']?></td>
                             </tr>
                         <?php } ?>

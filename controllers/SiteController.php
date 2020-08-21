@@ -75,9 +75,18 @@ class SiteController extends Controller
             'tarefas' =>  Tarefa::find()->where(['quadro'=>0])->count('1')
         ];
 
+        $query = new Query();
+        $tarefas = $query->select(['u.id','u.nome','count(t.id) qtde'])
+            ->from('usuario u ')
+            ->join('left join', 'tarefa t','t.usuario_id = u.id ')
+            ->groupBy(['id', 'nome'])
+            ->orderBy('nome')
+            ->all();
+
+
         return $this->render('index',[
             'quickAccess'=>$quickAccess,
-            'tarefas'=>[]
+            'tarefas'=>$tarefas
         ]);
     }
 

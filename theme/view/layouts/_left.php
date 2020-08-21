@@ -7,7 +7,7 @@ if($usuario['type'] == 1){
     $items = [
         ['label' => 'Menu', 'options' => ['class' => 'header']],
         ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['/site/index']],
-        ['label' => 'Produtos', 'icon' => 'cube', 'url' => ['/produto'], 'active' => Yii::$app->controller->id == 'plano'],
+        ['label' => 'Produtos', 'icon' => 'cube', 'url' => ['/produto'], 'active' => Yii::$app->controller->id == 'produto'],
         ['label' => 'Backlogs', 'icon' => 'cubes', 'url' => ['/backlog'], 'active' => Yii::$app->controller->id == 'backlog'],
         ['label' => 'Sprints', 'icon' => 'send', 'url' => ['/sprint'], 'active' => Yii::$app->controller->id == 'tabela-preco'],
         ['label' => 'Kanban', 'icon' => 'th', 'url' => ['/kanban'], 'active' => Yii::$app->controller->id == 'modelo'],
