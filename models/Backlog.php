@@ -107,4 +107,12 @@ class Backlog extends \yii\db\ActiveRecord
             2 => 'Alta'
         ];
     }
+
+    public function getCategoriaDescricao(){
+        return $this->categoria ? Backlog::getCategorias()[$this->categoria] : null;
+    }
+
+    public function getPrioridadeDescricao(){
+        return $this->prioridade ? Backlog::getPrioridades()[$this->prioridade] : null;
+    }
 }
