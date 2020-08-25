@@ -15,10 +15,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body table-responsive">
 
-        <?= $form->field($model, 'data')->textInput() ?>
+        <?= $form->field($model, 'data')->textInput(['picker'=>'date']) ?>
 
-        <?= $form->field($model, 'sprint_id')->textInput() ?>
-
+        <?= $form->field($model, 'sprint_id')->dropDownList(\app\models\Sprint::find()->select(['objetivo'])->orderBy('objetivo')->indexBy('id')->column()) ?>
 
     </div>
     <div class="box-footer">

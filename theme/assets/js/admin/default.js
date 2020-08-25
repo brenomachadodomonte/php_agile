@@ -7,18 +7,18 @@ function loadPlugins() {
         },
     });
 
-    $('[msk=date]').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/aaaa' });
-    $('[msk=datetime]').inputmask('dd/mm/yyyy 99:99', { 'placeholder': 'dd/mm/aaaa hh:ss' });
-    $('[msk=referencia]').inputmask('999999', { 'placeholder': 'aaaamm' });
-    $('[msk=telefone]').inputmask('(99) 9999-9999');
-    $('[msk=celular]').inputmask('(99) 99999-9999');
-    $('[msk=contato]').inputmask({
+    $('[mask=date]').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/aaaa' });
+    $('[mask=datetime]').inputmask('dd/mm/yyyy 99:99', { 'placeholder': 'dd/mm/aaaa hh:ss' });
+    $('[mask=referencia]').inputmask('999999', { 'placeholder': 'aaaamm' });
+    $('[mask=telefone]').inputmask('(99) 9999-9999');
+    $('[mask=celular]').inputmask('(99) 99999-9999');
+    $('[mask=contato]').inputmask({
         mask: ['(99) 9999-9999', '(99) 99999-9999'],
         keepStatic: true
     });
-    $('[msk=cpf]').inputmask('999.999.999-99');
-    $('[msk=cnpj]').inputmask('99.999.999/9999-99');
-    $('[msk=cpf_cnpj]').inputmask({
+    $('[mask=cpf]').inputmask('999.999.999-99');
+    $('[mask=cnpj]').inputmask('99.999.999/9999-99');
+    $('[mask=cpf_cnpj]').inputmask({
         mask: ['999.999.999-99', '99.999.999/9999-99'],
         keepStatic: true
     });
@@ -29,13 +29,13 @@ function loadPlugins() {
     });
     $('[mask=numero]').inputmask({alias: 'numeric', rightAlign: false});
 
-    $('[pck=date]').datepicker({
+    $('[picker=date]').datepicker({
         autoclose: true,
         format: 'yyyy-mm-dd',
         language: 'pt-BR',
         displayFormat: 'dd/mm/yyyy'
     });
-    $('[pck=reference]').datepicker({
+    $('[picker=reference]').datepicker({
         format: 'yyyymm',
         language: 'pt-BR',
         todayHighlight:'TRUE',

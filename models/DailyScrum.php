@@ -44,7 +44,7 @@ class DailyScrum extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'data' => 'Data',
-            'sprint_id' => 'Sprint ID',
+            'sprint_id' => 'Sprint',
         ];
     }
 
