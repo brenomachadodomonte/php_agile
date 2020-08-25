@@ -110,6 +110,18 @@ class SprintController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionCheck($id){
+        $model = $this->findModel($id);
+        $model->data_finalizacao = date('Y-m-d H:i:s');
+
+        if($model->save()){
+            $this->redirect(['index']);
+        } else {
+            Yii::$app->session->setFlash('error', "Erro ao finalizar Produto");
+        }
+        return $this->redirect(['index']);
+    }
+
     public function actionStatus($id){
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $result = [

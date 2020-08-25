@@ -61,7 +61,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'header'=> 'Ações',
                     'contentOptions' => ['class' => 'text-center action-buttons'],
                     'headerOptions' => ['class' => 'text-center'],
+                    'template'=>'{check} {view} {update} {delete}',
                     'buttons'=>[
+                        'check' => function($url, $model) {
+                            return Html::a('<i class="glyphicon glyphicon-ok"></i> ', ['backlog/check/'.$model->id], ['data-toggle'=>'tooltip', 'class' => 'btn btn-info btn-sm btn-flat', 'title'=>'Finalizar']);
+                        },
                         'view'=>function ($url, $model) {
                             return Html::a('<i class="glyphicon glyphicon-eye-open"></i> ', ['sprint/view/'.$model->id], ['data-toggle'=>'tooltip', 'class' => 'btn btn-primary btn-sm btn-flat', 'title'=>'Visualizar']);
                         },
