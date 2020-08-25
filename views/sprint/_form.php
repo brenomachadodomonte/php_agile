@@ -17,11 +17,11 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'objetivo')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'backlog_id')->textInput() ?>
+        <?= $form->field($model, 'backlog_id')->dropDownList(\app\models\Backlog::find()->select(['descricao'])->orderBy('descricao')->indexBy('id')->column()) ?>
 
-        <?= $form->field($model, 'data_finalizacao')->textInput() ?>
+        <?= $form->field($model, 'data_finalizacao')->hiddenInput()->label(false) ?>
 
-        <?= $form->field($model, 'status')->checkbox(['class'=>'icheck']) ?>
+        <?= $form->field($model, 'status')->checkbox(['class'=>'icheck', 'checked'=>true]) ?>
 
         <?php if($model->isNewRecord) { 
             echo $form->field($model, 'data_criacao')->hiddenInput(['value'=>date('Y-m-d H:i:s')])->label(false);

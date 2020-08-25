@@ -14,9 +14,9 @@ use Yii;
 * @property string $data_criacao
 * @property string|null $data_finalizacao
 *
-    * @property DailyScrum[] $dailyScrums
-    * @property Backlog $backlog
-    */
+* @property DailyScrum[] $dailyScrums
+* @property Backlog $backlog
+*/
 class Sprint extends \yii\db\ActiveRecord
 {
     /**
@@ -50,9 +50,9 @@ class Sprint extends \yii\db\ActiveRecord
             'id' => 'ID',
             'objetivo' => 'Objetivo',
             'status' => 'Status',
-            'backlog_id' => 'Backlog ID',
-            'data_criacao' => 'Data Criacao',
-            'data_finalizacao' => 'Data Finalizacao',
+            'backlog_id' => 'Backlog',
+            'data_criacao' => 'Data Criação',
+            'data_finalizacao' => 'Data Finalização',
         ];
     }
 
