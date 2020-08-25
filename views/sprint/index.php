@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                ['attribute'=>'backlog.produto.nome', 'label'=>'Produto'],
                 ['attribute'=>'backlog.descricao', 'label'=>'Backlog'],
                 'data_criacao:datetime',
-                 'data_finalizacao',
+                 'data_finalizacao:datetime',
                 [
                     'attribute'=> 'status',
                     'contentOptions' => ['style' => 'text-align: center'],
@@ -64,7 +64,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'template'=>'{check} {view} {update} {delete}',
                     'buttons'=>[
                         'check' => function($url, $model) {
-                            return Html::a('<i class="glyphicon glyphicon-ok"></i> ', ['sprint/check/'.$model->id], ['data-toggle'=>'tooltip', 'class' => 'btn btn-info btn-sm btn-flat', 'title'=>'Finalizar']);
+                            if(!$model->data_finalizacao){
+                                return Html::a('<i class="glyphicon glyphicon-ok"></i> ', ['sprint/check/'.$model->id], ['data-toggle'=>'tooltip', 'class' => 'btn btn-info btn-sm btn-flat', 'title'=>'Finalizar']);
+                            }
+                            return Html::a('<i class="glyphicon glyphicon-ok"></i> ', ['#'], ['data-toggle'=>'tooltip', 'class' => 'btn btn-default btn-sm btn-flat', 'title'=>'Sprint Finalizada']);
                         },
                         'view'=>function ($url, $model) {
                             return Html::a('<i class="glyphicon glyphicon-eye-open"></i> ', ['sprint/view/'.$model->id], ['data-toggle'=>'tooltip', 'class' => 'btn btn-primary btn-sm btn-flat', 'title'=>'Visualizar']);
