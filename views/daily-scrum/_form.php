@@ -23,9 +23,7 @@ $this->myJsFiles = [
 
         <?= $form->field($model, 'sprint_id')->dropDownList(\app\models\Sprint::find()->select(['objetivo'])->orderBy('objetivo')->indexBy('id')->column(), ['prompt'=>'Selecione']) ?>
 
-        <div id="scrum">
-
-        </div>
+        <div id="scrum"></div>
     </div>
     <div class="box-footer">
         <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-save"></i> Cadastrar' : '<i class="fa fa-save"></i> Salvar', ['class' => 'btn btn-success btn-flat']) ?>

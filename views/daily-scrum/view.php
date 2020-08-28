@@ -1,10 +1,12 @@
 <?php
 
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\DailyScrum */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Daily Scrum #'.$model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Daily Scrums', 'url' => ['index']];
@@ -22,9 +24,31 @@ $this->params['breadcrumbs'][] = $this->title;
             'model' => $model,
             'attributes' => [
                 'id',
-                'data',
-                'sprint_id',
+                'data:date',
+                ['attribute'=>'sprint.objetivo', 'label'=>'Sprint' ],
             ],
         ]) ?>
     </div>
+
+    <div class="box-body">
+        <h4>Scrum developers</h4>
+    </div>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'summary'=>'Exibindo {begin}-{end} de {totalCount} itens',
+        'pager' => [
+            'options' => [
+                'class' => 'pagination pagination-sm no-margin pull-right',
+            ],
+        ],
+        'emptyText' => 'Nenhum registro encontrado',
+        'layout' => "<div class='box-body table-responsive'>{items}</div> <div class='box-footer'> <span>{summary}</span>{pager}</div>",
+        'columns' => [
+            'usuario.nome',
+            'fez_ontem',
+            'fara_hoje',
+            'impedimentos',
+        ],
+    ]); ?>
 </div>

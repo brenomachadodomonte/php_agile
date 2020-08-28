@@ -13,6 +13,9 @@ use Yii;
 * @property string $fara_hoje
 * @property string $impedimentos
 * @property int $usuario_id
+*
+* @property Usuario $usuario
+* @property DailyScrum $dailyScrum
 */
 class ItemDailyScrum extends \yii\db\ActiveRecord
 {
@@ -33,6 +36,8 @@ class ItemDailyScrum extends \yii\db\ActiveRecord
             [['daily_scrum_id', 'usuario_id'], 'required'],
             [['daily_scrum_id', 'usuario_id'], 'integer'],
             [['fez_ontem', 'fara_hoje', 'impedimentos'], 'string', 'max' => 200],
+            [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['usuario_id' => 'id']],
+            [['daily_scrum_id'], 'exist', 'skipOnError' => true, 'targetClass' => DailyScrum::className(), 'targetAttribute' => ['daily_scrum_id' => 'id']],
         ];
     }
 
@@ -73,5 +78,21 @@ class ItemDailyScrum extends \yii\db\ActiveRecord
         $search = "lower(concat({$fields}))";
 
         return ['like', $search, strtolower($q)];
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getUsuario()
+    {
+    return $this->hasOne(Usuario::className(), ['id' => 'usuario_id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getDailyScrum()
+    {
+    return $this->hasOne(DailyScrum::className(), ['id' => 'daily_scrum_id']);
     }
 }

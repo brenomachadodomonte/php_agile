@@ -74,6 +74,6 @@ class DailyScrum extends \yii\db\ActiveRecord
     */
     public function getSprint()
     {
-    return $this->hasOne(Sprint::className(), ['id' => 'sprint_id']);
+        return $this->hasOne(Sprint::className(), ['id' => 'sprint_id']);
     }
 }

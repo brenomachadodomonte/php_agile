@@ -2,9 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\ItemDailyScrum;
+use app\models\PapelUsuario;
+use app\models\Sprint;
 use Yii;
 use app\models\DailyScrum;
 use yii\data\ActiveDataProvider;
+use yii\db\Exception;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -56,8 +60,13 @@ class DailyScrumController extends Controller
      */
     public function actionView($id)
     {
+        $dataProvider = new ActiveDataProvider([
+            'query' => ItemDailyScrum::find()->where(['daily_scrum_id'=>$id]),
+        ]);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider'=>$dataProvider
         ]);
     }
 
@@ -70,8 +79,32 @@ class DailyScrumController extends Controller
     {
         $model = new DailyScrum();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $transaction = Yii::$app->db->beginTransaction();
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+
+            try{
+                $model->load($post);
+                $model->save();
+
+                foreach ($post['scrum'] as $scrum){
+                    $scrum['daily_scrum_id'] = $model->id;
+
+                    $item = new ItemDailyScrum();
+                    $item->setAttributes($scrum);
+                    if(!$item->save()){
+                        Throw new Exception('Erro');
+                    }
+                }
+
+                $transaction->commit();
+                return $this->redirect(['view', 'id' => $model->id]);
+            } catch (\Exception $e){
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', "Erro ao cadastrar Daily Scrum");
+                return $this->redirect(['index']);
+            }
+
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -148,10 +181,22 @@ class DailyScrumController extends Controller
     }
 
     public function actionDaily(){
-        $result = [
-            'html'=>$this->renderPartial('_scrum')
-        ];
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+            $sprint = Sprint::findOne($post['id']);
 
-        return Json::encode($result);
+            if($sprint !== null){
+
+                $usuarios = PapelUsuario::find()->where(['produto_id'=>$sprint->backlog->produto_id, 'papel_id'=>1])->all();
+                $result = [
+                    'html'=>$this->renderPartial('_scrum', [
+                        'usuarios'=>$usuarios
+                    ]),
+                    'error'=>false,
+                ];
+            }
+
+            return Json::encode($result);
+        }
     }
 }
