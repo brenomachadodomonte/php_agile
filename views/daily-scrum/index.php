@@ -41,7 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 //'id',
                 'data:date',
-                'sprint.objetivo',
+                ['attribute'=>'sprint.objetivo', 'label'=>'Sprint'],
+                ['attribute'=>'sprint.backlog.produto.nome', 'label'=>'Produto'],
 
                 [
                     'class' => 'yii\grid\ActionColumn',
