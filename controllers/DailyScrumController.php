@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\DailyScrum;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -144,5 +145,13 @@ class DailyScrumController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionDaily(){
+        $result = [
+            'html'=>$this->renderPartial('_scrum')
+        ];
+
+        return Json::encode($result);
     }
 }
