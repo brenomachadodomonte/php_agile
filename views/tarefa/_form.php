@@ -17,13 +17,13 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'tipo')->textInput() ?>
+        <?= $form->field($model, 'tipo')->dropDownList(\app\models\Tarefa::getTipos()) ?>
 
-        <?= $form->field($model, 'quadro')->textInput() ?>
+        <?= $form->field($model, 'quadro')->hiddenInput(['value'=>0])->label(false) ?>
 
-        <?= $form->field($model, 'usuario_id')->textInput() ?>
+        <?= $form->field($model, 'usuario_id')->dropDownList(\app\models\Usuario::find()->select(['nome'])->orderBy('nome')->indexBy('id')->column(), ['prompt'=>'Selecione o Usuário...']) ?>
 
-        <?= $form->field($model, 'sprint_id')->textInput() ?>
+        <?= $form->field($model, 'sprint_id')->dropDownList(\app\models\Sprint::find()->select(['objetivo'])->orderBy('objetivo')->indexBy('id')->column(), ['prompt'=>'Selecione a Sprint...']) ?>
 
         <?php if($model->isNewRecord) { 
             echo $form->field($model, 'data_criacao')->hiddenInput(['value'=>date('Y-m-d H:i:s')])->label(false);

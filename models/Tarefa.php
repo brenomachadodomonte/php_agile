@@ -14,8 +14,11 @@ use Yii;
 * @property int $usuario_id
 * @property int $sprint_id
 * @property string $data_criacao
-* @property string $data_modificacao
-*/
+* @property string|null $data_modificacao
+*
+    * @property Sprint $sprint
+    * @property Usuario $usuario
+    */
 class Tarefa extends \yii\db\ActiveRecord
 {
     /**
@@ -32,10 +35,12 @@ class Tarefa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tipo', 'quadro', 'usuario_id', 'sprint_id', 'data_criacao', 'data_modificacao'], 'required'],
+            [['tipo', 'quadro', 'usuario_id', 'sprint_id', 'data_criacao'], 'required'],
             [['tipo', 'quadro', 'usuario_id', 'sprint_id'], 'integer'],
             [['data_criacao', 'data_modificacao'], 'safe'],
             [['descricao'], 'string', 'max' => 80],
+            [['sprint_id'], 'exist', 'skipOnError' => true, 'targetClass' => Sprint::className(), 'targetAttribute' => ['sprint_id' => 'id']],
+            [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['usuario_id' => 'id']],
         ];
     }
 
@@ -46,13 +51,13 @@ class Tarefa extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'descricao' => 'Descricao',
+            'descricao' => 'Descrição',
             'tipo' => 'Tipo',
             'quadro' => 'Quadro',
-            'usuario_id' => 'Usuario ID',
-            'sprint_id' => 'Sprint ID',
-            'data_criacao' => 'Data Criacao',
-            'data_modificacao' => 'Data Modificacao',
+            'usuario_id' => 'Usuario',
+            'sprint_id' => 'Sprint',
+            'data_criacao' => 'Data Criação',
+            'data_modificacao' => 'Data Modificação',
         ];
     }
 
@@ -80,5 +85,46 @@ class Tarefa extends \yii\db\ActiveRecord
         $search = "lower(concat({$fields}))";
 
         return ['like', $search, strtolower($q)];
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getSprint()
+    {
+        return $this->hasOne(Sprint::className(), ['id' => 'sprint_id']);
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getUsuario()
+    {
+        return $this->hasOne(Usuario::className(), ['id' => 'usuario_id']);
+    }
+
+    public static function getTipos(){
+        return [
+            0 => 'Novo',
+            1 => 'Alteração',
+            2 => 'Correção'
+        ];
+    }
+
+    public static function getQuadros(){
+        return [
+            0 => 'TODO',
+            1 => 'DOING',
+            2 => 'TEST',
+            3 => 'DONE'
+        ];
+    }
+
+    public function getTipoDescricao(){
+        return isset($this->tipo) ? Tarefa::getTipos()[$this->tipo] : null;
+    }
+
+    public function getQuadroDescricao(){
+        return isset($this->quadro) ? Tarefa::getQuadros()[$this->quadro] : null;
     }
 }
